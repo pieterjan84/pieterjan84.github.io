@@ -3,29 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>Catppuccin Themed Homepage</title>
     <style>
         body {
             margin: 0;
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
             height: 100vh;
             font-family: Arial, sans-serif;
             background-color: #1e1e2e; /* Mocha background */
             color: #f8f8f2; /* Mocha text color */
         }
+        .container {
+            position: absolute;
+            top: 25%; /* First quarter of the viewport height */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
         h1 {
             font-size: 3em;
             background: linear-gradient(to right, #ff79c6, #bd93f9); /* Latte colors */
             -webkit-background-clip: text;
             color: transparent;
-            margin-bottom: 20px;
+            margin: 0;
         }
         .links {
             display: flex;
             gap: 20px;
+            margin-top: 20px; /* Space between title and links */
         }
         .link {
             color: #bd93f9; /* Latte color */
@@ -39,12 +46,14 @@
     </style>
 </head>
 <body>
-    <h1>Hello World</h1>
-    <div class="links">
-        <a href="https://www.youtube.com" class="link" target="_blank">YouTube</a>
-        <a href="https://www.spotify.com" class="link" target="_blank">Spotify</a>
-        <a href="https://mail.proton.me" class="link" target="_blank">Mail</a>
-        <a href="https://calendar.proton.me" class="link" target="_blank">Calendar</a>
+    <div class="container">
+        <h1>Home</h1>
+        <div class="links">
+            <a href="https://www.youtube.com" class="link" target="_blank">YouTube</a>
+            <a href="https://www.spotify.com" class="link" target="_blank">Spotify</a>
+            <a href="https://mail.proton.me" class="link" target="_blank">Mail</a>
+            <a href="https://calendar.proton.me" class="link" target="_blank">Calendar</a>
+        </div>
     </div>
 </body>
 </html>
