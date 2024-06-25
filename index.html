@@ -8,6 +8,7 @@
         body {
             margin: 0;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
@@ -20,10 +21,30 @@
             background: linear-gradient(to right, #ff79c6, #bd93f9); /* Latte colors */
             -webkit-background-clip: text;
             color: transparent;
+            margin-bottom: 20px;
+        }
+        .links {
+            display: flex;
+            gap: 20px;
+        }
+        .link {
+            color: #bd93f9; /* Latte color */
+            text-decoration: none;
+            font-size: 1.5em;
+            transition: color 0.3s;
+        }
+        .link:hover {
+            color: #ff79c6; /* Change color on hover */
         }
     </style>
 </head>
 <body>
     <h1>Hello World</h1>
+    <div class="links">
+        <a href="https://www.youtube.com" class="link" target="_blank">YouTube</a>
+        <a href="https://www.spotify.com" class="link" target="_blank">Spotify</a>
+        <a href="https://mail.proton.me" class="link" target="_blank">Mail</a>
+        <a href="https://calendar.proton.me" class="link" target="_blank">Calendar</a>
+    </div>
 </body>
 </html>
