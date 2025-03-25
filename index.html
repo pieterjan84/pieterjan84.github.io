@@ -3,111 +3,246 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-  <title>Personal Landing</title>
-  <style>
-    /* Base styling */
+  <title>Link Launcher</title>
+ <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
     body {
-      margin: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      font-family: "Source Code Pro", "Terminus", monospace;
       height: 100vh;
-      font-family: Arial, sans-serif;
-    }
-
-    .container {
-      position: absolute;
-      top: 25%; /* First quarter of the viewport height */
+      transition: background-color 0.3s, color 0.3s;
+      position: relative;
       display: flex;
       flex-direction: column;
+      justify-content: center;
       align-items: center;
     }
-
-    .intro {
-      font-size: 2em;
-      margin: 0;
-    }
-
-    .links {
-      display: flex;
-      gap: 20px;
-      margin-top: 20px;
-    }
-
-    .link {
-      text-decoration: none;
-      font-size: 1.5em;
-      transition: color 0.3s;
-    }
-
-    /* Toggle button */
+    
     .theme-selector {
       position: absolute;
-      top: 10px;
-      right: 10px;
-      padding: 10px;
+      top: 6px;
+      right: 6px;
+      padding: 3px 8px;
       border: none;
       cursor: pointer;
+      font-family: inherit;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      transition: all 0.2s;
+    }
+    
+    .app-wrapper {
+      width: 600px;
+      max-width: 95%;
+      border: 1px solid;
+    }
+    
+    .dmenu {
+      width: 100%;
+    }
+    
+    .search-container {
+      display: flex;
+      width: 100%;
+      height: 28px; /* Fixed compact height */
+      border-bottom: 1px solid;
+    }
+    
+    #search {
+      flex-grow: 1;
+      padding: 4px 8px;
+      font-family: inherit;
+      font-size: 0.9rem;
+      border: none;
+      outline: none;
+      height: 100%;
+    }
+    
+    /* Prompt */
+    .prompt {
+      display: inline-flex;
+      align-items: center;
+      padding: 0 8px;
+      font-weight: bold;
+      font-size: 0.9rem;
+      height: 100%;
+    }
+    
+    /* Links container */
+    .container {
+      width: 100%;
+    }
+    
+    /* Links - MORE COMPACT WITH STRIPES */
+    .links {
+      list-style-type: none;
+      width: 100%;
+    }
+    
+    .link-item {
+      padding: 2px 8px;
+      margin: 0;
+      transition: background-color 0.2s;
+      height: 26px;
+      display: flex;
+      align-items: center;
+    }
+    
+    .link-item:hover {
+      padding-left: 12px;
+    }
+    
+    .link {
+      text-decoration: none;
+      display: block;
+      font-size: 0.9rem;
+    }
+    
+    /* Hide links that don't match search */
+    .hidden {
+      display: none;
     }
 
     /* ==================== DARK THEME ==================== */
     .gruvbox-dark {
-      background-color: #282828; /* dark bg */
-      color: #ebdbb2; /* light text */
+      background-color: #282828;
+      color: #ebdbb2;
     }
-    .gruvbox-dark .intro {
-      color: #cc241d; /* dark red */
+    
+    .gruvbox-dark .app-wrapper {
+      border-color: #504945;
     }
-    .gruvbox-dark .link {
-      color: #b16286; /* purple */
+    
+    .gruvbox-dark .search-container {
+      border-color: #504945;
     }
-    .gruvbox-dark .link:hover {
-      color: #d79921; /* yellow */
-    }
+    
     .gruvbox-dark .theme-selector {
       background-color: #3c3836;
       color: #ebdbb2;
     }
+    
     .gruvbox-dark .theme-selector:hover {
       background-color: #504945;
+    }
+    
+    .gruvbox-dark #search {
+      background-color: #1d2021;
+      color: #ebdbb2;
+    }
+    
+    .gruvbox-dark .prompt {
+      background-color: #504945;
+      color: #ebdbb2;
+    }
+    
+    .gruvbox-dark .link {
+      color: #ebdbb2;
+    }
+    
+    /* Alternating stripes - dark theme */
+    .gruvbox-dark .link-item:nth-child(odd) {
+      background-color: #3c3836;
+    }
+    
+    .gruvbox-dark .link-item:nth-child(even) {
+      background-color: #32302f;
+    }
+    
+    .gruvbox-dark .link-item:hover {
+      background-color: #504945;
+    }
+    
+    .gruvbox-dark .link:active {
+      color: #fe8019;
     }
 
     /* ==================== LIGHT THEME ==================== */
     .gruvbox-light {
-      background-color: #fbf1c7; /* light bg */
-      color: #3c3836; /* dark text */
+      background-color: #fbf1c7;
+      color: #3c3836;
     }
-    .gruvbox-light .intro {
-      color: #9d0006; /* light red */
+    
+    .gruvbox-light .app-wrapper {
+      border-color: #d5c4a1;
     }
-    .gruvbox-light .link {
-      color: #8f3f71; /* purple */
+    
+    .gruvbox-light .search-container {
+      border-color: #d5c4a1;
     }
-    .gruvbox-light .link:hover {
-      color: #b57614; /* yellow */
-    }
+    
     .gruvbox-light .theme-selector {
+      background-color: #ebdbb2;
+      color: #3c3836;
+    }
+    
+    .gruvbox-light .theme-selector:hover {
+      background-color: #d5c4a1;
+    }
+    
+    .gruvbox-light #search {
+      background-color: #f2e5bc;
+      color: #3c3836;
+    }
+    
+    .gruvbox-light .prompt {
       background-color: #d5c4a1;
       color: #3c3836;
     }
-    .gruvbox-light .theme-selector:hover {
-      background-color: #bdae93;
+    
+    .gruvbox-light .link {
+      color: #3c3836;
     }
-  </style>
+    
+    /* Alternating stripes - light theme */
+    .gruvbox-light .link-item:nth-child(odd) {
+      background-color: #ebdbb2;
+    }
+    
+    .gruvbox-light .link-item:nth-child(even) {
+      background-color: #f2e5bc;
+    }
+    
+    .gruvbox-light .link-item:hover {
+      background-color: #d5c4a1;
+    }
+    
+    .gruvbox-light .link:active {
+      color: #af3a03;
+    }
+    
+    @import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap');
+  </style> 
 </head>
 <body>
-  <button class="theme-selector" onclick="toggleTheme()">Toggle Theme</button>
-  <div class="container">
-    <p class="intro">Welcome</p>
-    <div class="links">
-      <a href="https://www.youtube.com/feed/subscriptions" class="link" target="_blank">YouTube</a>
-      <a href="https://www.spotify.com" class="link" target="_blank">Spotify</a>
-      <a href="https://mail.proton.me" class="link" target="_blank">Mail</a>
-      <a href="https://calendar.proton.me" class="link" target="_blank">Calendar</a>
-      <a href="https://github.com" class="link" target="_blank">Github</a>
+  <button class="theme-selector" onclick="toggleTheme()">light/dark</button>
+  
+  <div class="app-wrapper">
+    <div class="dmenu">
+      <div class="search-container">
+        <div class="prompt">launch:</div>
+        <input type="text" id="search" placeholder="" autofocus>
+      </div>
+    </div>
+    
+    <div class="container">
+      <ul class="links">
+        <li class="link-item"><a href="https://www.youtube.com/feed/subscriptions" class="link" target="_blank">youtube</a></li>
+        <li class="link-item"><a href="https://www.spotify.com" class="link" target="_blank">spotify</a></li>
+        <li class="link-item"><a href="https://mail.proton.me" class="link" target="_blank">mail</a></li>
+        <li class="link-item"><a href="https://calendar.proton.me" class="link" target="_blank">calendar</a></li>
+        <li class="link-item"><a href="https://github.com" class="link" target="_blank">github</a></li>
+        <li class="link-item"><a href="https://bsky.app" class="link" target="_blank">bsky</a></li>
+      </ul>
     </div>
   </div>
+  
   <script>
+    // Theme toggle function
     function toggleTheme() {
       const body = document.body;
       if (body.classList.contains('gruvbox-dark')) {
@@ -120,11 +255,46 @@
         localStorage.setItem('theme', 'dark');
       }
     }
+    
+    // Filter links based on search input
+    document.getElementById('search').addEventListener('input', function() {
+      const filter = this.value.toLowerCase();
+      const links = document.getElementsByClassName('link-item');
+      
+      for (let i = 0; i < links.length; i++) {
+        const linkText = links[i].textContent.toLowerCase();
+        if (linkText.includes(filter)) {
+          links[i].classList.remove('hidden');
+        } else {
+          links[i].classList.add('hidden');
+        }
+      }
+    });
+    
+    // Allow keyboard navigation for links
+    document.getElementById('search').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        const visibleLinks = document.querySelectorAll('.link-item:not(.hidden) .link');
+        if (visibleLinks.length > 0) {
+          // Navigate to the first visible link
+          window.location.href = visibleLinks[0].href;
+          // Alternative approach: simulate click
+          // visibleLinks[0].click();
+        }
+      }
+    });
 
+    // Set theme on page load
     document.addEventListener('DOMContentLoaded', () => {
       const savedTheme = localStorage.getItem('theme') || 'dark';
       document.body.classList.add(savedTheme === 'dark' ? 'gruvbox-dark' : 'gruvbox-light');
+      document.getElementById('search').focus();
     });
+    
+    // Ensure focus on search box after page load
+    window.onload = function() {
+      document.getElementById('search').focus();
+    };
   </script>
 </body>
 </html>
