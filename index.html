@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
   <title>Personal Landing</title>
   <style>
+    /* Base styling */
     body {
       margin: 0;
       display: flex;
@@ -12,9 +13,8 @@
       align-items: center;
       height: 100vh;
       font-family: Arial, sans-serif;
-      background-color: #282828; /* Gruvbox dark background */
-      color: #ebdbb2; /* Gruvbox dark text color */
     }
+
     .container {
       position: absolute;
       top: 25%; /* First quarter of the viewport height */
@@ -22,64 +22,76 @@
       flex-direction: column;
       align-items: center;
     }
+
     .intro {
       font-size: 2em;
       margin: 0;
     }
+
     .links {
       display: flex;
       gap: 20px;
-      margin-top: 20px; /* Space between intro text and links */
+      margin-top: 20px;
     }
+
     .link {
-      color: #bd93f9; /* Latte color */
       text-decoration: none;
       font-size: 1.5em;
       transition: color 0.3s;
     }
-    .link:hover {
-      color: #d79921; /* Gruvbox dark color */
-    }
+
+    /* Toggle button */
     .theme-selector {
       position: absolute;
       top: 10px;
       right: 10px;
       padding: 10px;
-      background-color: #44475a;
-      color: #f8f8f2;
       border: none;
       cursor: pointer;
     }
-    .theme-selector:hover {
-      background-color: #6272a4;
-    }
-    /* Dark theme styles */
+
+    /* ==================== DARK THEME ==================== */
     .gruvbox-dark {
-      background-color: #282828;
-      color: #ebdbb2;
+      background-color: #282828; /* dark bg */
+      color: #ebdbb2; /* light text */
     }
     .gruvbox-dark .intro {
-      color: #cc241d; /* Gruvbox red color for dark mode */
+      color: #cc241d; /* dark red */
     }
     .gruvbox-dark .link {
-      color: #bd93f9;
+      color: #b16286; /* purple */
     }
     .gruvbox-dark .link:hover {
-      color: #d79921;
+      color: #d79921; /* yellow */
     }
-    /* Light theme styles */
+    .gruvbox-dark .theme-selector {
+      background-color: #3c3836;
+      color: #ebdbb2;
+    }
+    .gruvbox-dark .theme-selector:hover {
+      background-color: #504945;
+    }
+
+    /* ==================== LIGHT THEME ==================== */
     .gruvbox-light {
-      background-color: #fbf1c7;
-      color: #3c3836;
+      background-color: #fbf1c7; /* light bg */
+      color: #3c3836; /* dark text */
     }
     .gruvbox-light .intro {
-      color: #9d0006; /* Gruvbox red color for light mode */
+      color: #9d0006; /* light red */
     }
     .gruvbox-light .link {
-      color: #7c3aed;
+      color: #8f3f71; /* purple */
     }
     .gruvbox-light .link:hover {
-      color: #b57614;
+      color: #b57614; /* yellow */
+    }
+    .gruvbox-light .theme-selector {
+      background-color: #d5c4a1;
+      color: #3c3836;
+    }
+    .gruvbox-light .theme-selector:hover {
+      background-color: #bdae93;
     }
   </style>
 </head>
