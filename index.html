@@ -24,9 +24,7 @@
         }
         h1 {
             font-size: 3em;
-            background: linear-gradient(to right, #ff79c6, #bd93f9); /* Latte colors */
-            -webkit-background-clip: text;
-            color: transparent;
+            color: #ebdbb2; /* Gruvbox dark color */
             margin: 0;
         }
         .links {
@@ -41,7 +39,7 @@
             transition: color 0.3s;
         }
         .link:hover {
-            color: #ff79c6; /* Change color on hover */
+            color: #d79921; /* Gruvbox dark color */
         }
         .theme-selector {
             position: absolute;
@@ -69,6 +67,12 @@
         }
         .gruvbox-light h1, .gruvbox-light .link {
             color: #3c3836;
+        }
+        .gruvbox-dark .link:hover {
+            color: #d79921;
+        }
+        .gruvbox-light .link:hover {
+            color: #b57614;
         }
     </style>
 </head>
