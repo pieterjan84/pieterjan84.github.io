@@ -4,7 +4,19 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1.0" />
   <title>AppMenu</title>
- <style>
+  <script>
+    // Apply theme immediately before page renders to prevent flash
+    (function() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      document.documentElement.classList.add(savedTheme === 'dark' ? 'gruvbox-dark' : 'gruvbox-light');
+    })();
+  </script>
+  <style>
+    html, body {
+      background-color: #282828; /* Gruvbox dark background as default */
+      margin: 0;
+      padding: 0;
+    }
     * {
       box-sizing: border-box;
       margin: 0;
@@ -346,17 +358,25 @@
     });
     
     // Allow keyboard navigation for links
+    // Allow keyboard navigation for links
     document.getElementById('search').addEventListener('keydown', function(e) {
       if (e.key === 'Enter') {
         const visibleLinks = document.querySelectorAll('.link-item:not(.hidden) .link');
         if (visibleLinks.length > 0) {
-          // Navigate to the first visible link
-          window.location.href = visibleLinks[0].href;
-          // Alternative approach: simulate click
-          // visibleLinks[0].click();
+          // Open in a new tab instead of replacing current page
+          window.open(visibleLinks[0].href, '_blank');
+          
+          // Clear the search input after pressing Enter
+          this.value = '';
+          
+          // Show all links again
+          const links = document.getElementsByClassName('link-item');
+          for (let i = 0; i < links.length; i++) {
+            links[i].classList.remove('hidden');
+          }
         }
       }
-    });
+    }); 
 
     // Set theme on page load
     document.addEventListener('DOMContentLoaded', () => {
