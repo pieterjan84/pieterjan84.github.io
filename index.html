@@ -72,12 +72,22 @@
       height: 100%;
     }
     
-    /* Links container */
     .container {
       width: 100%;
+      min-height: 130px; 
+      max-height: 50vh; 
+      overflow-y: auto; /* Add scrollbar if needed */
+      overflow-x: hidden;
     }
     
-    /* Links - MORE COMPACT WITH STRIPES */
+    .container::-webkit-scrollbar {
+      width: 4px;
+    }
+    
+    .container::-webkit-scrollbar-thumb {
+      background-color: #504945;
+    }
+    
     .links {
       list-style-type: none;
       width: 100%;
@@ -259,6 +269,22 @@
       }
     }
     
+    // Calculate and set container height on page load
+    function setInitialContainerHeight() {
+      const container = document.querySelector('.container');
+      const linkItems = document.querySelectorAll('.link-item');
+      
+      if (linkItems.length > 0) {
+        // Measure total height of all link items
+        const totalHeight = Array.from(linkItems).reduce((height, item) => {
+          return height + item.offsetHeight;
+        }, 0);
+        
+        // Set the container's min-height to match all items
+        container.style.minHeight = totalHeight + 'px';
+      }
+    }
+    
     // Filter links based on search input
     document.getElementById('search').addEventListener('input', function() {
       const filter = this.value.toLowerCase();
@@ -292,11 +318,17 @@
       const savedTheme = localStorage.getItem('theme') || 'dark';
       document.body.classList.add(savedTheme === 'dark' ? 'gruvbox-dark' : 'gruvbox-light');
       document.getElementById('search').focus();
+      
+      // Set initial container height
+      setInitialContainerHeight();
     });
     
     // Ensure focus on search box after page load
     window.onload = function() {
       document.getElementById('search').focus();
+      
+      // Make sure container height is set after everything else loads
+      setTimeout(setInitialContainerHeight, 100);
     };
   </script>
 </body>
